@@ -2,20 +2,20 @@
 
 
 function submitData(name, email) {
-    fetch("http://localhost:3000/users", {
+    return fetch("http://localhost:3000/users", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            Accept: "application/json",
+            "Accept": "application/json"
         },
         body: JSON.stringify({
             name,
-            email,
+            email
         })
     })
         .then(resp => resp.json())
-        .then(newUser => createUser(newUser))
-        .catch(error => reportError(error.message))
+        .then(newUser => (createUser(newUser)))
+        .catch(error => (reportError(error)))
 
 }
 
@@ -25,8 +25,7 @@ function createUser(newUser) {
 }
 
 function reportError(error) {
-    document.body.append(error)
-    console.log(error)
+    document.body.innerHTML = error.message
 }
 
 
