@@ -1,20 +1,33 @@
 // Add your code here
 
 
-function submitData(inputName, inputEmail) {
-    fetch("http://localhost:3000/users") {
+function submitData(name, email) {
+    fetch("http://localhost:3000/users", {
         method: "POST",
-            headers: {
+        headers: {
             "Content-Type": "application/json",
-                Accept: "application/json",
-  },
+            Accept: "application/json",
+        },
         body: JSON.stringify({
-            name: inputName,
-            email: inputEmail,
-        }),
-    
-});
+            name,
+            email,
+        })
+    })
+        .then(resp => resp.json())
+        .then(newUser => createUser(newUser))
+        .catch(error => reportError(error.message))
 
+}
+
+
+function createUser(newUser) {
+    document.body.append(newUser["id"])
+}
+
+function reportError(error) {
+    document.body.append(error)
+    console.log(error)
+}
 
 
 // const formData = {
@@ -38,4 +51,4 @@ function submitData(inputName, inputEmail) {
 //     .then(function (object) {
 //         console.log(object);
 //     });
-
+//
